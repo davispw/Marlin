@@ -55,7 +55,7 @@
 #define X_STOP_PIN        PA15
 #define Y_STOP_PIN        PA12
 #define Z_MIN_PIN         PA11
-//#define Z_MAX_PIN         PC4
+#define Z_MAX_PIN         PC4      // https://github.com/makerbase-mks/MKS-Robin-Nano/blob/master/hardware/MKS%20Robin%20Nano%20V1.2_003/MKS%20Robin%20Nano%20V1.2_003%20PIN.pdf
 
 #ifndef FIL_RUNOUT_PIN
   #define FIL_RUNOUT_PIN   PA4   // MT_DET
@@ -80,9 +80,9 @@
 #define E0_STEP_PIN        PD6
 #define E0_DIR_PIN         PD3
 
-//#define E1_ENABLE_PIN      PA3
-//#define E1_STEP_PIN        PA6
-//#define E1_DIR_PIN         PA1
+#define E1_ENABLE_PIN      PA3
+#define E1_STEP_PIN        PA6
+#define E1_DIR_PIN         PA1
 
 //
 // Temperature Sensors

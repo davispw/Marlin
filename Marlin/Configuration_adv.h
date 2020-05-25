@@ -446,7 +446,7 @@
 #if ENABLED(Z_DUAL_STEPPER_DRIVERS)
   #define Z_DUAL_ENDSTOPS
   #if ENABLED(Z_DUAL_ENDSTOPS)
-    #define Z2_USE_ENDSTOP _XMAX_
+    #define Z2_USE_ENDSTOP _ZMAX_
     #define Z_DUAL_ENDSTOPS_ADJUSTMENT  0
   #endif
 #endif
@@ -2829,7 +2829,7 @@
 /**
  * M43 - display pin status, watch pins for changes, watch endstops & toggle LED, Z servo probe test, toggle pins
  */
-#define PINS_DEBUGGING
+//#define PINS_DEBUGGING  // disable for dual Z motors - https://github.com/MarlinFirmware/Marlin/issues/15710
 
 // Enable Marlin dev mode which adds some special commands
 //#define MARLIN_DEV_MODE
