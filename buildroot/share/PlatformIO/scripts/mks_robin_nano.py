@@ -23,6 +23,7 @@ def encrypt(source, target, env):
 
     firmware = open(target[0].path, "rb")
     robin = open(target[0].dir.path +'/Robin_nano.bin', "wb")
+    robin = open(target[0].dir.path +'/Robin_nano35.bin', "wb")
     length = os.path.getsize(target[0].path)
     position = 0
     try:
