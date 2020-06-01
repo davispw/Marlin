@@ -129,7 +129,7 @@
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
  */
 // @fixing octoprint connection issues - I guess RPi may have issues with higher baud rates.
-#define BAUDRATE 250000
+#define BAUDRATE 115200
 
 // Enable the Bluetooth serial interface on AT90USB devices
 //#define BLUETOOTH
@@ -330,11 +330,11 @@
  * Enable and connect the power supply to the PS_ON_PIN.
  * Specify whether the power supply is active HIGH or active LOW.
  */
-//#define PSU_CONTROL
+#define PSU_CONTROL
 //#define PSU_NAME "Power Supply"
 
 #if ENABLED(PSU_CONTROL)
-  #define PSU_ACTIVE_HIGH false // Set 'false' for ATX (1), 'true' for X-Box (2)
+  #define PSU_ACTIVE_HIGH true // Set 'false' for ATX (1), 'true' for X-Box (2)
 
   //#define PS_DEFAULT_OFF      // Keep power off until enabled directly with M80
 
@@ -625,13 +625,13 @@
 // Specify here all the endstop connectors that are connected to any endstop or probe.
 // Almost all printers will be using one per axis. Probes will use one or more of the
 // extra connectors. Leave undefined any used for non-endstop and non-probe purposes.
-//@ Sapphire Pro uses Y-MAX, if you want 0,0 to be front left
-#define USE_XMIN_PLUG
+//@ Sapphire Pro uses Y-MAX and X-MAX, if you want 0,0 to be front left
+//#define USE_XMIN_PLUG
 //#define USE_YMIN_PLUG
 #define USE_ZMIN_PLUG
-//#define USE_XMAX_PLUG
+#define USE_XMAX_PLUG
 #define USE_YMAX_PLUG
-#define USE_ZMAX_PLUG
+#define USE_ZMAX_PLUG // for Z2
 
 // Enable pullup for all endstops to prevent a floating state
 #define ENDSTOPPULLUPS
@@ -661,11 +661,11 @@
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
 //@ microswitches
-#define X_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+#define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Y_MIN_ENDSTOP_INVERTING false// Set to true to invert the logic of the endstop.
-#define Z_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+#define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Y_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+#define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Z_MIN_PROBE_ENDSTOP_INVERTING true // Set to true to invert the logic of the probe.
 
@@ -743,7 +743,7 @@
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
 //@ settings from 1.0.3 stock firmware
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 407 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 381.5 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -1052,8 +1052,8 @@
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
 //@ TMC2208 behavior
-#define INVERT_X_DIR true
-#define INVERT_Y_DIR true
+#define INVERT_X_DIR false
+#define INVERT_Y_DIR false
 #define INVERT_Z_DIR false
 
 // @section extruder
@@ -1068,26 +1068,23 @@
 
 // @section homing
 
-//#define NO_MOTION_BEFORE_HOMING  // Inhibit movement until all axes have been homed
+#define NO_MOTION_BEFORE_HOMING  // Inhibit movement until all axes have been homed
 
 //@
-//#define UNKNOWN_Z_NO_RAISE // Don't raise Z (lower the bed) if Z is "unknown." For beds that fall when Z is powered off.
+#define UNKNOWN_Z_NO_RAISE // Don't raise Z (lower the bed) if Z is "unknown." For beds that fall when Z is powered off.
 
-#define Z_HOMING_HEIGHT 2  // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
+#define Z_HOMING_HEIGHT 3  // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
                              // Be sure you have this distance over your Z_MAX_POS in case.
 
 // Direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1,1]
-#define X_HOME_DIR -1
+//@ home to X-max
+#define X_HOME_DIR 1
 //@ home to Y-max
 #define Y_HOME_DIR 1
 #define Z_HOME_DIR -1
 
 // @section machine
-
-//@
-//@ my measurements
-//@
 
 // The size of the print bed
 #define X_BED_SIZE 300
@@ -1097,9 +1094,9 @@
 #define X_MIN_POS -1
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
-#define X_MAX_POS X_BED_SIZE
+#define X_MAX_POS (X_BED_SIZE + 1)
 #define Y_MAX_POS 300
-#define Z_MAX_POS 350
+#define Z_MAX_POS (350 - Z_HOMING_HEIGHT)
 
 /**
  * Software Endstops
@@ -1367,7 +1364,7 @@
 // Homing speeds (mm/m)
 //@
 #define HOMING_FEEDRATE_XY (45*60)
-#define HOMING_FEEDRATE_Z  (20*60)
+#define HOMING_FEEDRATE_Z  (10*60)
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
@@ -2133,7 +2130,7 @@
 #define TOUCH_BUTTONS
 #if ENABLED(TOUCH_BUTTONS)
   #define BUTTON_DELAY_EDIT  50 // (ms) Button repeat delay for edit screens
-  #define BUTTON_DELAY_MENU 250 // (ms) Button repeat delay for menus
+  #define BUTTON_DELAY_MENU 150 // (ms) Button repeat delay for menus
 
   //@ different calib for 3.5"TFT
   #define XPT2046_X_CALIBRATION    12013

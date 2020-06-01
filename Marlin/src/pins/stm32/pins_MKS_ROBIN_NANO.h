@@ -23,6 +23,7 @@
 
 /**
  * MKS Robin nano (STM32F130VET6) board pin assignments
+ * https://github.com/makerbase-mks/MKS-Robin-Nano/blob/master/hardware/MKS%20Robin%20Nano%20V1.2_003/MKS%20Robin%20Nano%20V1.2_003%20PIN.pdf
  */
 
 #ifndef __STM32F1__
@@ -55,7 +56,7 @@
 #define X_STOP_PIN        PA15
 #define Y_STOP_PIN        PA12
 #define Z_MIN_PIN         PA11
-#define Z_MAX_PIN         PC4      // https://github.com/makerbase-mks/MKS-Robin-Nano/blob/master/hardware/MKS%20Robin%20Nano%20V1.2_003/MKS%20Robin%20Nano%20V1.2_003%20PIN.pdf
+#define Z_MAX_PIN         PC4
 
 #ifndef FIL_RUNOUT_PIN
   #define FIL_RUNOUT_PIN   PA4   // MT_DET
@@ -114,9 +115,9 @@
 // Misc. Functions
 //
 #define POWER_LOSS_PIN     PA2   // PW_DET
-#define PS_ON_PIN          PA3   // PW_OFF
+#define PS_ON_PIN          PB2   // PW_OFF
 
-#define LED_PIN            PB2
+//#define LED_PIN            xxxS
 
 //
 // LCD / Controller
