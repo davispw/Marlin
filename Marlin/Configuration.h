@@ -2195,7 +2195,7 @@
 #define TOUCH_BUTTONS
 #if ENABLED(TOUCH_BUTTONS)
   #define BUTTON_DELAY_EDIT  50 // (ms) Button repeat delay for edit screens
-  #define BUTTON_DELAY_MENU 150 // (ms) Button repeat delay for menus
+  #define BUTTON_DELAY_MENU  80 // (ms) Button repeat delay for menus
 
   //@ different calib for 3.5"TFT
   #define XPT2046_X_CALIBRATION    12013
