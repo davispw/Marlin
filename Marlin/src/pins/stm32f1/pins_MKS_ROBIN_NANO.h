@@ -168,3 +168,7 @@
     #define TOUCH_MOSI_PIN                  PB15  // SPI2_MOSI
   #endif
 #endif
+
+
+// HELP! How to find spec for this?
+#define ONBOARD_SD_CS_PIN                 PC11
